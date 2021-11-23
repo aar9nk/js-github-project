@@ -18,32 +18,27 @@ const button = document.getElementById("button");
 form.addEventListener('submit' , function(e){
     e.preventDefault()
 
-//get value
-const search = document.getElementById("search").value 
-//console.log(value)
+    //get value
+    const search = document.getElementById("search").value 
+    //console.log(value)
 
-const originalName = search.split(' ').join('')
-console.log(originalName)
+    const originalName = search.split(' ').join('')
+    console.log(originalName)
 
-// Search API 
-fetch("https://api.github.com/users").data
-console.log(data)
+    const searchGithub = async () => {
+       try {
+        //#user-search-endpoint
+        const result = await fetch("https://api.github.com/users" + originalName);//
+        const data =  await result.json();
+        console.log(data);
+    } catch (err) {
+        console.error(err);
+    }
 
-
-const searchGithub = async () => {
-   try {
-    //#user-search-endpoint
-    const result = await fetch("https://api.github.com/users" + originalName);//
-    const data =  await result.json();
-    console.log(data);
-} catch (err) {
-    console.error(err);
- 
-document.getElementById("result").innerHTML = `
-<a target ="_blank" href="https://www.github.com/${originalName}" <img src = "${data.avatar_url} "/></a>
-`
-}; 
-} 
+    document.getElementById("result").innerHTML = `
+            <a target ="_blank" href="https://www.github.com/${originalName}" <img src = "${data.avatar_url} "/></a>
+        `
+    };  
 })
 
 
